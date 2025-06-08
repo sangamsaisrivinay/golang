@@ -109,3 +109,63 @@ slice[:]             // full slice copy
 | `append()`            | Add elements, may allocate                  |
 | `sort` package        | Sort built-in or custom slices              |
 | `:` operator          | Create sub-slices                           |
+
+
+
+Removing elements from a **slice** in Go requires creating a new slice (or modifying the existing one) because slices don't have a built-in `remove()` function.
+
+---
+
+### 🔹 Common Techniques to Remove Elements from a Slice
+
+#### 🟢 1. **Remove element at index `i`**
+
+```go
+a := []int{10, 20, 30, 40, 50}
+i := 2 // Remove element at index 2 (value 30)
+
+a = append(a[:i], a[i+1:]...)
+// Result: [10 20 40 50]
+```
+
+---
+
+#### 🟢 2. **Remove elements by value**
+
+You need to loop and filter:
+
+```go
+a := []int{10, 20, 30, 20, 40}
+valueToRemove := 20
+result := []int{}
+
+for _, v := range a {
+    if v != valueToRemove {
+        result = append(result, v)
+    }
+}
+// result: [10 30 40]
+```
+
+---
+
+#### 🟢 3. **Remove a range of elements** (e.g., from index `start` to `end-1`)
+
+```go
+a := []int{10, 20, 30, 40, 50, 60}
+start, end := 2, 4 // remove 30 and 40
+
+a = append(a[:start], a[end:]...)
+// Result: [10 20 50 60]
+```
+
+---
+
+### ⚠️ Notes:
+
+* All these operations create a new backing array **if the capacity needs to grow**.
+* Modifying slices this way is efficient but watch for shared backing arrays if you keep references to the original slice.
+
+---
+
+Would you like an example of removing elements from a slice of **structs** or **strings** too?
