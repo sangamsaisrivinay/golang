@@ -59,3 +59,33 @@ func main() {
 
 
 }
+
+
+
+
+
+
+
+// > go run variables.go
+// vale of num  5
+// type of num int
+// vale of str  hi
+// type of str string
+// vale of bl  true
+// type of bl bool
+// vale of n1  hi
+// type of n1 string
+// vale of rand  10
+// type of rand int
+// vale of pi  3
+// type of pi int
+// vale of login  yes
+// type of login string
+// vale of wish  hi
+// type of wish string
+// s1: type = int, value = 0
+// s2: type = string, value =
+// s3: type = bool, value = false
+// s4: type = float32, value = 0
+// s5: type = float64, value = 0
+
