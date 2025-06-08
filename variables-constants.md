@@ -205,4 +205,42 @@ func main() {
 
 ---
 
-Let me know if you'd like this as a downloadable `.md` file or want to expand with advanced examples (e.g., pointers, structs, etc.)!
+
+You can find the **type of a variable** in **Go** using the **`%T` format verb** with the `fmt.Printf` function.
+
+---
+
+### 🔍 **Syntax:**
+
+```go
+fmt.Printf("%T\n", variable)
+```
+
+---
+
+### ✅ **Example:**
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var a = 42
+    var b = 3.14
+    var c = "Hello"
+    var d = true
+
+    fmt.Printf("Type of a: %T\n", a) // int
+    fmt.Printf("Type of b: %T\n", b) // float64
+    fmt.Printf("Type of c: %T\n", c) // string
+    fmt.Printf("Type of d: %T\n", d) // bool
+}
+```
+
+---
+
+### 🧠 **Key Point:**
+
+* `%T` prints the **Go type** of the variable.
+* Useful for **debugging** and understanding **inferred types**.
