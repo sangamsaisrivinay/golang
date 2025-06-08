@@ -1,0 +1,38 @@
+- `Go` is a compiled lamguage
+- Go is not a pure OOP
+    - yes
+        - class based
+        - interfaces support
+        - inheritance
+        - encapsulation
+        - composition
+    - no
+        - no support for overload/ override
+
+- we can build exe files using `go build <filename.go>`
+- we can export the exes without giving code
+
+
+- missing concepts
+    - try/ catch (handled by `Lexer`)
+
+
+- `main()` is the entry point for a golang file
+- find path for go installation
+`go env GOPATH`
+
+- all the main packages are present in
+```
+TEMP=$(go env GOPATH)
+echo $TEMP
+cd $TEMP/pkg/mod
+ls -l
+```
+
+```
+cache
+github.com
+golang.org
+honnef.co
+mvdan.cc
+```
