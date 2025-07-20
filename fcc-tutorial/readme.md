@@ -33,13 +33,13 @@
 # functions in go
 - declared using `func` keyword
 eg:
-<pre>
+<code>
 package main
 import "fmt"
 func main(){
     fmt.Print("hello")
 }
-</pre>
+</code>
 
 
 ---
@@ -98,17 +98,17 @@ eg: `package main`
 - add/sub/mult/div not applicable for diff types
 - one of the variables shd be casted
 
-<pre>
+<code>
 var a int = 4;
 var b float32 = 65;
 var res float32 = a + b; ❌
 res = float32(a) + b;
-</pre>
+</code>
 
 - division of 2 integers, will give integer trounded to nearest number
 - use `%` for getting remainder
 
-<pre>
+<code>
 func main(){
 	var a int= 4;
 	var b int = 16;
@@ -117,17 +117,17 @@ func main(){
 	fmt.Println(c)
 	fmt.Println(d)
 }
-</pre>
+</code>
 
 
 - use + to concatenate strings
 - we have `len()` function to get the length of string, but it gives no of bytes, but not the actual string length
 - when we have special characters, iy takes 2 bytes
 
-<pre>
+<code>
 fmt.Println(len("α"))
 gives length as 2
-</pre>
+</code>
 
 - so we use a 3rd party library to get the string length
 
@@ -138,7 +138,7 @@ gives length as 2
 ## special case for string
 - use the package `unicode/utf8` which provide the function `RuneCountInString` to get the exact string length
 
-<pre>
+<code>
 import ("fmt"
 "unicode/utf8"
 );
@@ -149,7 +149,7 @@ func main(){
 }
 
 gives the length as 1
-</pre>
+</code>
 
 
 - booleans
@@ -162,7 +162,7 @@ have eitehr true or false value
 - short hand variable declaration operator
 
 usage:
-<pre>
+<code>
 x := 5 ✅
 var x:= 5 ❌
 var1, var2 := 4, 5
@@ -174,7 +174,7 @@ func main(){
 	fmt.Println(y)
 }
 
-</pre>
+</code>
 
 ---
 
@@ -183,13 +183,13 @@ func main(){
 - unused variables are not allowed in go file
 
 eg:
-<pre>
+<code>
 import "fmt"
 func abc(){
     var num int
     fmt.Print(num)
 }
-</pre>
+</code>
 
 - constants: no vslue change, must be initialized during declaration
 
@@ -202,7 +202,7 @@ const myVar int = 5
 
 ## passing parameters in function
 
-<pre>
+<code>
 package main
 
 import ("fmt"
@@ -215,11 +215,11 @@ func print_str(str string){
 func main(){
 	print_str("hello")
 }
-</pre>
+</code>
 
 ## return value from function
 
-<pre>
+<code>
 package main
 
 import ("fmt"
@@ -233,11 +233,11 @@ func main(){
 	fmt.Print(add_nums(5,4))
 }
 
-</pre>
+</code>
 
 ## return multiple values
 
-<pre>
+<code>
 package main
 
 import ("fmt"
@@ -250,12 +250,12 @@ func div_mod(a int, b int) (int, int){
 func main(){
 	fmt.Print(div_mod(5,4))
 }
-</pre>
+</code>
 
 ## handle errors returned by function
 - we use the `"errors"` module to handle any errors/ exceptions occured during the function execution and we will return that error from function
 
-<pre>
+<code>
 package main
 
 import ("fmt"
@@ -278,7 +278,7 @@ func main(){
 	}
 	fmt.Print(div,mod)
 }
-</pre>
+</code>
 
 ---
 
@@ -297,40 +297,40 @@ if !loggedIn {
 }
 </code>
 
-<pre>
+<code>
 day := "Sunday"
 if day == "Saturday" || day == "Sunday" {
     fmt.Println("Weekend")
 }
-</pre>
+</code>
 
-<pre>
+<code>
 age := 25
 if age > 18 && age < 60 {
     fmt.Println("Eligible to work")
 }
-</pre>
+</code>
 
 ## switch
 
-### switch without expression
+### switch without excodession
 
-<pre>
+<code>
 age := 20
 
 switch {
 case age < 13:
     fmt.Println("Child")
-case age <pre 18:
+case age <code 18:
     fmt.Println("Teenager")
 default:
     fmt.Println("Adult")
 }
-</pre>
+</code>
 
 ### basic switch
 
-<pre>
+<code>
 package main
 
 import "fmt"
@@ -350,7 +350,7 @@ func main() {
     }
 }
 
-</pre>
+</code>
 
 *in go switch, break is not requires, when a case is matched it automatically breaks out of the loop*
 
@@ -358,7 +358,7 @@ func main() {
 
 - we use `fallthrough` if we wnt to explicitly execute next case
 
-<pre>
+<code>
 num := 1
 switch num {
 case 1:
@@ -370,7 +370,7 @@ default:
     fmt.Println("Default")
 }
 
-</pre>
+</code>
 
 ---
 
@@ -412,25 +412,25 @@ func main(){
 ## Slices
 - slices wrap around arrays to give additional functionality
 
-<pre>
+<code>
 intSlice := []int{0,1,2}
-</pre>
+</code>
 
 - appending the element to a slice
     - before appending the element, if there is no vacancy in the array, a new array is formed and the existing elements are copied into the new array and the element os appended to the array
 - checking the length of slice will have 3
 - capacity of slice is 3
 
-<pre>
+<code>
 intSlice := []int{0,1,2}
 append(intSlice, 4)
-</pre>
+</code>
 
 - length of slice will be 4
 - capacity of slice is 6, but cant access uninitialized elements
 - the capacity will be doubled to the current capacity when appending a new element to slice
 
-<pre>
+<code>
 package main
 
 import ("fmt"
@@ -451,9 +451,9 @@ func main(){
 	fmt.Println(&intArr[0])
     fmt.Println(intArr[5])
 }
-</pre>
+</code>
 
-<pre>
+<code>
 [0 1 2]
 3
 3
@@ -464,7 +464,7 @@ func main(){
 memory address changed...
 0x140000c0000
 panic: runtime error: index out of range [5] with length 4
-</pre>
+</code>
 
 ### functions in slice
 length - get length of slice `len(sliceName)`
@@ -472,12 +472,12 @@ capacity - get total elements the slice can accomodate `cap(sliceName)`
 append - appends a variable or a slice `append(sliceName, varName)`
 
 
-### spread operator
-spread operator in slice `...`
+### scodead operator
+scodead operator in slice `...`
 
 - appending a slice
 
-<pre>
+<code>
 package main
 
 import ("fmt"
@@ -499,9 +499,9 @@ func main(){
 	fmt.Println(len(intArr))
 	fmt.Println(cap(intArr))
 }
-</pre>
+</code>
 
-<pre>
+<code>
 [0 1 2]
 3
 3
@@ -511,7 +511,7 @@ func main(){
 [0 1 2 3 3 3 4 5 10]
 9
 16
-</pre>
+</code>
 
 ### make() function for slice
 
@@ -519,11 +519,11 @@ func main(){
 
 var intSlice []int= make([]int, 3, 8)
 
-<pre>
+<code>
 s := make([]int, 3, 5)  // length = 3, capacity = 5
 fmt.Println(len(s), cap(s))  // Output: 3 5
 
 s := make([]int, 3)  // length = 3, capacity = 3
 fmt.Println(s)       // Output: [0 0 0]
 
-</pre>
+</code>
