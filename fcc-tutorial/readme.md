@@ -321,7 +321,7 @@ age := 20
 switch {
 case age < 13:
     fmt.Println("Child")
-case age <pre 18:
+case age < 18:
     fmt.Println("Teenager")
 default:
     fmt.Println("Adult")
