@@ -1,15 +1,26 @@
 package main
 
-import ("fmt"
-);
+import(
+	"fmt"
+)
 
+type gasEngine struct{
+	milesPerGallon int8
+	gallons int8
+}
+
+type ev struct{
+	kwh uint8
+	miles uint8
+}
+
+type 
+
+func (e engine) milesLeft() int{
+	return int
+}
 
 func main(){
-
-	i:=0
-	for i<10{
-		fmt.Println(i)
-		i++
-	}
-
+	engine1 := gasEngine{25, 30}
+	fmt.Println(engine1.milesLeft())
 }

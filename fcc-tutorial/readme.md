@@ -1,3 +1,10 @@
+### missed
+- [ ] defer
+- [ ] methods, function vs method
+- [ ] break, continue, goto
+
+
+
 # theory
 
 - go is statically typed
@@ -95,6 +102,7 @@ eg: `package main`
 - float32
 - float64
 - string
+- boolean
 
 ## rules for operations on datatypes
 - add/sub/mult/div not applicable for diff types
@@ -138,7 +146,7 @@ gives length as 2
 - `` for multi line strings
 
 ## special case for string
-- use the package `unipre/utf8` which provide the function `RuneCountInString` to get the exact string length
+- use the package `unicode/utf8` which provide the function `RuneCountInString` to get the exact string length
 
 <pre>
 import ("fmt"
@@ -627,7 +635,7 @@ for i<10{
 }
 </pre>
 
-## for loop: iterating arrays, slices, maps using loops
+## range - for loop: iterating arrays, slices, maps using loops
 
 `range` actually iterates over and prints the indeces of the datastructure in case of array, slice
 to get the actual values we use 2 variables to access it
@@ -745,4 +753,330 @@ go has no concept of while loop
 
 # Strings, Runes and Bytes
 
+- normal characters are occupying 16 bits for (-127 to 128), so it occupies 1byte as per utf16 in go
+- if there are any special characters like emoji they need 32 bits, so we will get 2 seperate bytes acc to utf16 which is standard in go
+- hence for any special characters we get string length as 2
+- in runes its calculated exactly in no of runes
+- hence for 32 bit also it counts length as 1 only
+
+the range operator will print the utf value of any given character in the string
+
+eg:
+<pre>
+package main
+
+import ("fmt"
+"unicode/utf8"
+);
+
+
+func main(){
+
+	str := "helloα"
+	fmt.Println(len(str))
+	fmt.Println(utf8.RuneCountInString(str))
+
+	for k, v := range str{
+		fmt.Println(k,v)
+	}
+}
+</pre>
+
+<pre>
+7
+6
+0 104
+1 101
+2 108
+3 108
+4 111
+5 945
+</pre>
+
+
+- in go, strings are immutable
+- if you append any character to the string, it will create a new string and append it
+this is memory inefficient
+- we can use string builder packages to use mutable strings, where new strig is not created
+
+eg:
+<pre>
+package main
+
+import (
+	"fmt"
+	"strings"
+);
+
+func main(){
+strSlice := []string{"h", "e", "l", "l", "o"}
+var strBuilder strings.Builder
+for _, i:= range strSlice{
+	strBuilder.WriteString(i)
+}
+finalStr:= strBuilder.String()
+fmt.Println(finalStr)
+}
+
+o/P: hello
+</pre>
+
+---
+
+# structs and interfaces
+
+## structs
+struct is a own type in go
+it can contain multiple datatypes in it
+
+### keywords
+- struct
+- type
+
+### declaring
+`type structName struct{}`
+
+eg:
+<pre>
+package main
+
+import(
+	"fmt"
+)
+
+type gasEngine struct{
+	milesPerGallon int8
+	gallons int8
+}
+
+func main(){
+    engine1 := gasEngine{25, 30}
+    fmt.Printf(`mpg: %d, gallons: %d`, engine1.milesPerGallon, engine1.gallons)
+}
+</pre>
+
+### nested structs
+- using a struct as type inside another struct
+
+<pre>
+package main
+
+import(
+	"fmt"
+)
+
+type gasEngine struct{
+	milesPerGallon int8
+	gallons int8
+	ownerInfo owner
+}
+
+type owner struct{
+	name string
+}
+
+func main(){
+
+	owner1 := owner{"raj"}
+	engine1 := gasEngine{25, 30, owner1}
+	fmt.Printf(`mpg: %d, gallons: %d, owner: %s`, engine1.milesPerGallon, engine1.gallons, engine1.ownerInfo.name)
+
+}
+
+o/p: mpg: 25, gallons: 30, owner: raj
+</pre>
+
+
+### anonymous structs
+- struct without a name
+- not reusable
+
+eg1:
+<pre>
+type gasEngine struct{
+	milesPerGallon int8
+	gallons int8
+	owner
+}
+
+type owner struct{
+	name string
+}
+
+func main(){
+	engine1 := gasEngine{25, 30, owner{"raj"}}
+	fmt.Printf(`mpg: %d, gallons: %d, owner: %s`, engine1.milesPerGallon, engine1.gallons, engine1.name)
+}
+</pre>
+
+eg2:
+<pre>
+myEngine2 := struct{
+                mpg uint8
+            }{5}
+fmt.Println(myEngine2.mpg)
+</pre>
+
+
+- now lets define a struct for electric also
+
+<pre>
+type ev struct{
+    miles unit8
+    kwh uint8
+}
+
+this will also have miles left method with same logic as gas engine
+</pre>
+
+
+- so, we have multiple structs with same field types and methods for them
+- as instances/ structs increase (eg: hydrogen fuel, cng etc..) we shd repeat the logic
+- instead we can define a generic type with the fields and methods
+
+it is called interface
+
+---
+
+# interfaces in go
+
+- They enable polymorphism — the ability to write code that works with different types as long as they implement the same set of methods.
+- An interface is a type that specifies a set of method signatures. Any type that implements those methods automatically satisfies the interface — no explicit declaration is needed.
+
+
+## keywords
+- type
+- interface
+
+- we can directly put the method definiton inside interface and use it for multiple struct types
+
+eg:
+
+### defining
+
+<pre>
+type Shape interface {
+    Area() float64
+}
+</pre>
+
+- structs that implement it
+
+<pre>
+type Circle struct {
+    radius float64
+}
+
+func (c Circle) Area() float64 {
+    return 3.14 * c.radius * c.radius
+}
+
+type Rectangle struct {
+    width, height float64
+}
+
+func (r Rectangle) Area() float64 {
+    return r.width * r.height
+}
+</pre>
+
+- using in a function
+
+<pre>
+func printArea(s Shape) {
+    fmt.Println("Area:", s.Area())
+}
+</pre>
+
+<pre>
+func main() {
+    c := Circle{radius: 5}
+    r := Rectangle{width: 4, height: 3}
+
+    printArea(c)  // Area: 78.5
+    printArea(r)  // Area: 12
+}
+</pre>
+
+
+### interface with multiple methods
+
+<pre>
+type Animal interface {
+    Speak() string
+    Type() string
+}
+
+type Dog struct{}
+type Cat struct{}
+
+func (d Dog) Speak() string { return "Woof!" }
+func (d Dog) Type() string  { return "Dog" }
+
+func (c Cat) Speak() string { return "Meow!" }
+func (c Cat) Type() string  { return "Cat" }
+
+func describe(a Animal) {
+    fmt.Printf("%s says %s\n", a.Type(), a.Speak())
+}
+
+func main() {
+    describe(Dog{}) // Dog says Woof!
+    describe(Cat{}) // Cat says Meow!
+}
+
+</pre>
+
+### empty interface
+
+<pre>
+func printAnything(i interface{}) {
+    fmt.Println(i)
+}
+
+printAnything(42)
+printAnything("hello")
+printAnything(true)
+
+</pre>
+
+---
+
+# methods in go
+
+we directly assigned engine object to the function
+
+<pre>
+type gasEngine struct{
+	milesPerGallon int8
+	gallons int8
+}
+func (e gasEngine) milesLeft() int{
+	return int(e.milesPerGallon)* int(e.gallons)
+}
+func main(){
+	engine1 := gasEngine{25, 30}
+	fmt.Println(engine1.milesLeft())
+}
+</pre>
+
+- the method is bound to a reciver object type, like a struct
+
+funciton with extra reviever object - method
+
+func `(e gasEngine)` milesLeft() int{
+	return int(e.milesPerGallon)* int(e.gallons)
+}
+
+
+Use a method when:
+- The logic is tightly related to a type (struct)
+
+---
+
+# pointers
+
+
+
+## callby value & call by reference
 
