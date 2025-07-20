@@ -13,7 +13,7 @@
 
 ---
 
-# structure of a go code
+# structure of a go pre
 - packages - collection of modules
 - modules - collection of go files
 
@@ -33,13 +33,13 @@
 # functions in go
 - declared using `func` keyword
 eg:
-<code>
+<pre>
 package main
 import "fmt"
 func main(){
     fmt.Print("hello")
 }
-</code>
+</pre>
 
 
 ---
@@ -53,7 +53,7 @@ eg: `import "fmt"`
 
 
 - every go file belong to a package
-- it is identified by typing the package name at the top of code in the go file
+- it is identified by typing the package name at the top of pre in the go file
 
 eg: `package main`
 
@@ -98,17 +98,17 @@ eg: `package main`
 - add/sub/mult/div not applicable for diff types
 - one of the variables shd be casted
 
-<code>
+<pre>
 var a int = 4;
 var b float32 = 65;
 var res float32 = a + b; ❌
 res = float32(a) + b;
-</code>
+</pre>
 
 - division of 2 integers, will give integer trounded to nearest number
 - use `%` for getting remainder
 
-<code>
+<pre>
 func main(){
 	var a int= 4;
 	var b int = 16;
@@ -117,17 +117,17 @@ func main(){
 	fmt.Println(c)
 	fmt.Println(d)
 }
-</code>
+</pre>
 
 
 - use + to concatenate strings
 - we have `len()` function to get the length of string, but it gives no of bytes, but not the actual string length
 - when we have special characters, iy takes 2 bytes
 
-<code>
+<pre>
 fmt.Println(len("α"))
 gives length as 2
-</code>
+</pre>
 
 - so we use a 3rd party library to get the string length
 
@@ -136,11 +136,11 @@ gives length as 2
 - `` for multi line strings
 
 ## special case for string
-- use the package `unicode/utf8` which provide the function `RuneCountInString` to get the exact string length
+- use the package `unipre/utf8` which provide the function `RuneCountInString` to get the exact string length
 
-<code>
+<pre>
 import ("fmt"
-"unicode/utf8"
+"unipre/utf8"
 );
 
 func main(){
@@ -149,7 +149,7 @@ func main(){
 }
 
 gives the length as 1
-</code>
+</pre>
 
 
 - booleans
@@ -162,7 +162,7 @@ have eitehr true or false value
 - short hand variable declaration operator
 
 usage:
-<code>
+<pre>
 x := 5 ✅
 var x:= 5 ❌
 var1, var2 := 4, 5
@@ -174,7 +174,7 @@ func main(){
 	fmt.Println(y)
 }
 
-</code>
+</pre>
 
 ---
 
@@ -183,13 +183,13 @@ func main(){
 - unused variables are not allowed in go file
 
 eg:
-<code>
+<pre>
 import "fmt"
 func abc(){
     var num int
     fmt.Print(num)
 }
-</code>
+</pre>
 
 - constants: no vslue change, must be initialized during declaration
 
@@ -202,7 +202,7 @@ const myVar int = 5
 
 ## passing parameters in function
 
-<code>
+<pre>
 package main
 
 import ("fmt"
@@ -215,11 +215,11 @@ func print_str(str string){
 func main(){
 	print_str("hello")
 }
-</code>
+</pre>
 
 ## return value from function
 
-<code>
+<pre>
 package main
 
 import ("fmt"
@@ -233,11 +233,11 @@ func main(){
 	fmt.Print(add_nums(5,4))
 }
 
-</code>
+</pre>
 
 ## return multiple values
 
-<code>
+<pre>
 package main
 
 import ("fmt"
@@ -250,12 +250,12 @@ func div_mod(a int, b int) (int, int){
 func main(){
 	fmt.Print(div_mod(5,4))
 }
-</code>
+</pre>
 
 ## handle errors returned by function
 - we use the `"errors"` module to handle any errors/ exceptions occured during the function execution and we will return that error from function
 
-<code>
+<pre>
 package main
 
 import ("fmt"
@@ -278,7 +278,7 @@ func main(){
 	}
 	fmt.Print(div,mod)
 }
-</code>
+</pre>
 
 ---
 
@@ -290,47 +290,47 @@ func main(){
 
 ## if-else-if
 
-<code>
+<pre>
 loggedIn := false
 if !loggedIn {
     fmt.Println("Please log in first")
 }
-</code>
+</pre>
 
-<code>
+<pre>
 day := "Sunday"
 if day == "Saturday" || day == "Sunday" {
     fmt.Println("Weekend")
 }
-</code>
+</pre>
 
-<code>
+<pre>
 age := 25
 if age > 18 && age < 60 {
     fmt.Println("Eligible to work")
 }
-</code>
+</pre>
 
 ## switch
 
-### switch without excodession
+### switch without expression
 
-<code>
+<pre>
 age := 20
 
 switch {
 case age < 13:
     fmt.Println("Child")
-case age <code 18:
+case age <pre 18:
     fmt.Println("Teenager")
 default:
     fmt.Println("Adult")
 }
-</code>
+</pre>
 
 ### basic switch
 
-<code>
+<pre>
 package main
 
 import "fmt"
@@ -350,7 +350,7 @@ func main() {
     }
 }
 
-</code>
+</pre>
 
 *in go switch, break is not requires, when a case is matched it automatically breaks out of the loop*
 
@@ -358,7 +358,7 @@ func main() {
 
 - we use `fallthrough` if we wnt to explicitly execute next case
 
-<code>
+<pre>
 num := 1
 switch num {
 case 1:
@@ -370,7 +370,7 @@ default:
     fmt.Println("Default")
 }
 
-</code>
+</pre>
 
 ---
 
@@ -390,7 +390,7 @@ can access elements using indeces
 slicing: uses `:` operator to print range of elements
 `eg: fmt.Print(intArr[0:2]) - prints element at 0, 1 indeces`
 - contiguous memeory locations
-<code>
+<pre>
 func main(){
 	var intArr [3]int= [3]int{0,1,2}
 	fmt.Println(intArr[1])
@@ -400,7 +400,7 @@ func main(){
 	fmt.Println(&intArr[1])
 	fmt.Println(&intArr[2])
 }
-</code>
+</pre>
 - static initialization
     - var intArr [3]int= [3]int{0,1,2} or
     - intArr := [3]int{0,1,2}
@@ -412,25 +412,25 @@ func main(){
 ## Slices
 - slices wrap around arrays to give additional functionality
 
-<code>
+<pre>
 intSlice := []int{0,1,2}
-</code>
+</pre>
 
 - appending the element to a slice
     - before appending the element, if there is no vacancy in the array, a new array is formed and the existing elements are copied into the new array and the element os appended to the array
 - checking the length of slice will have 3
 - capacity of slice is 3
 
-<code>
+<pre>
 intSlice := []int{0,1,2}
 append(intSlice, 4)
-</code>
+</pre>
 
 - length of slice will be 4
 - capacity of slice is 6, but cant access uninitialized elements
 - the capacity will be doubled to the current capacity when appending a new element to slice
 
-<code>
+<pre>
 package main
 
 import ("fmt"
@@ -451,9 +451,9 @@ func main(){
 	fmt.Println(&intArr[0])
     fmt.Println(intArr[5])
 }
-</code>
+</pre>
 
-<code>
+<pre>
 [0 1 2]
 3
 3
@@ -464,7 +464,7 @@ func main(){
 memory address changed...
 0x140000c0000
 panic: runtime error: index out of range [5] with length 4
-</code>
+</pre>
 
 ### functions in slice
 length - get length of slice `len(sliceName)`
@@ -472,12 +472,12 @@ capacity - get total elements the slice can accomodate `cap(sliceName)`
 append - appends a variable or a slice `append(sliceName, varName)`
 
 
-### scodead operator
-scodead operator in slice `...`
+### spread operator
+spread operator in slice `...`
 
 - appending a slice
 
-<code>
+<pre>
 package main
 
 import ("fmt"
@@ -499,9 +499,9 @@ func main(){
 	fmt.Println(len(intArr))
 	fmt.Println(cap(intArr))
 }
-</code>
+</pre>
 
-<code>
+<pre>
 [0 1 2]
 3
 3
@@ -511,7 +511,7 @@ func main(){
 [0 1 2 3 3 3 4 5 10]
 9
 16
-</code>
+</pre>
 
 ### make() function for slice
 
@@ -519,11 +519,11 @@ func main(){
 
 var intSlice []int= make([]int, 3, 8)
 
-<code>
+<pre>
 s := make([]int, 3, 5)  // length = 3, capacity = 5
 fmt.Println(len(s), cap(s))  // Output: 3 5
 
 s := make([]int, 3)  // length = 3, capacity = 3
 fmt.Println(s)       // Output: [0 0 0]
 
-</code>
+</pre>
