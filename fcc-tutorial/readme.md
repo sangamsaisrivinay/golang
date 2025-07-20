@@ -1,3 +1,5 @@
+# theory
+
 - go is statically typed
     - datatype shd be given during declaration
     - or it autodetects datatype at intialization and cant be changed later
@@ -311,6 +313,14 @@ if age > 18 && age < 60 {
 }
 </pre>
 
+<pre>
+if exist{
+		fmt.Println("exist")
+}else{
+    fmt.Println("not exist")
+}
+</pre>
+
 ## switch
 
 ### switch without expression
@@ -470,7 +480,7 @@ panic: runtime error: index out of range [5] with length 4
 length - get length of slice `len(sliceName)`
 capacity - get total elements the slice can accomodate `cap(sliceName)`
 append - appends a variable or a slice `append(sliceName, varName)`
-
+delete - delete a value
 
 ### spread operator
 spread operator in slice `...`
@@ -516,6 +526,7 @@ func main(){
 ### make() function for slice
 
 - to set the length, initial capacity of the slice
+- default capacity is length of slice
 
 var intSlice []int= make([]int, 3, 8)
 
@@ -527,3 +538,211 @@ s := make([]int, 3)  // length = 3, capacity = 3
 fmt.Println(s)       // Output: [0 0 0]
 
 </pre>
+
+## Maps
+
+- can create map using make() function
+
+### declaration
+<pre>
+var myMap map[string]int = make(map[string]int)
+</pre>
+
+### static initialization
+<pre>
+var myMap map[string]int = map[string]int {"a":5, "b":4}
+</pre>
+
+### accessing values
+- `myMap[key]`
+
+### we can use a additional variable to check if the value for given key exist or not
+`var val, exist= myMap1["b"]`
+
+<pre>
+package main
+
+import ("fmt"
+);
+
+
+func main(){
+	var myMap map[string]int = make(map[string]int)
+	fmt.Println(myMap)
+	var myMap1 map[string]int = map[string]int{"a":5, "b":6}
+	fmt.Println(myMap1["a"])
+	fmt.Println(myMap1["c"])
+	var val, exist= myMap1["b"]
+	if exist{
+		fmt.Println("exist")
+	}else{
+		fmt.Println("not exist")
+	}
+	val, exist= myMap["c"]
+	if exist{
+		fmt.Println("exist")
+	}else{
+		fmt.Println("not exist")
+	}
+	fmt.Println(val)
+}
+</pre>
+
+<pre>
+map[]
+5
+0
+exist
+not exist
+0
+</pre>
+---
+
+# for loop
+
+- variants in for loop
+
+<pre>
+i:=0
+for {
+    if i>10{
+        break
+    }
+    fmt.Println(i)
+    i++
+}
+</pre>
+
+<pre>
+for i:=0; i<10; i++ {
+		fmt.Println(i)
+	}
+</pre>
+
+<pre>
+i:=0
+for i<10{
+    fmt.Println(i)
+    i++
+}
+</pre>
+
+## for loop: iterating arrays, slices, maps using loops
+
+`range` actually iterates over and prints the indeces of the datastructure in case of array, slice
+to get the actual values we use 2 variables to access it
+
+
+### arrays
+- iterate and print indeces
+<pre>
+myArr := [5]int {0,1,2}
+	for val:= range myArr{
+		fmt.Println(val)
+	}
+</pre>
+
+<pre>
+the actually printed values are the indeces
+0
+1
+2
+3
+4
+</pre>
+
+- to print the values, we can use `_` operator to ignore it
+
+<pre>
+myArr := [5]int {0,1,3,4}
+for _, val:= range myArr{
+    fmt.Println(val)
+}
+</pre>
+
+<pre>
+0
+1
+3
+4
+0
+</pre>
+
+- to print both index, value we can do
+
+<pre>
+myArr := [5]int {0,1,3,4}
+for index, val:= range myArr{
+    fmt.Println(index, val)
+}
+</pre>
+0 0
+1 1
+2 3
+3 4
+4 0
+<pre>
+
+</pre>
+
+### slices
+<pre>
+mySlice := []int {0,1,2}
+for val := range mySlice{
+    fmt.Println(val)
+}
+</pre>
+
+<pre>
+the actually printed values are the indeces
+0
+1
+2
+</pre>
+
+- to print the actual values we use
+<pre>
+mySlice := []int {0,1,2}
+for _, val := range mySlice{
+    fmt.Println(val)
+}
+</pre>
+
+### maps
+<pre>
+var myMap1 map[string]int = map[string]int{"a":5, "b":6}
+for key, val := range myMap1{
+    fmt.Printf(`key: %s, value: %d`, key, val)
+    fmt.Println()
+}
+</pre>
+
+<pre>
+key: a, value: 5
+key: b, value: 6
+</pre>
+
+<b>
+go has no concept of while loop
+</b>
+
+---
+
+# _ operator in go
+
+- In Go, the underscore `_` is called the blank identifier. It's a special symbol used when you want to ignore a value returned by a function or loop, or when you intentionally don't use a variable.
+
+| Usage                  | Purpose                      |
+| ---------------------- | ---------------------------- |
+| `_ = something`        | Discard unused variable      |
+| `for _, val := range`  | Ignore index in loops        |
+| `for i, _ := range`    | Ignore value in loops        |
+| `_, err := function()` | Discard result or error      |
+| `import _ "package"`   | Import only for side effects |
+
+
+---
+
+# Strings, Runes and Bytes
+
+
