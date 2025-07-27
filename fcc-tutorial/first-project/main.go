@@ -4,23 +4,19 @@ import(
 	"fmt"
 )
 
-type gasEngine struct{
-	milesPerGallon int8
-	gallons int8
-}
-
-type ev struct{
-	kwh uint8
-	miles uint8
-}
-
-type 
-
-func (e engine) milesLeft() int{
-	return int
-}
-
 func main(){
-	engine1 := gasEngine{25, 30}
-	fmt.Println(engine1.milesLeft())
+
+	var i int32
+	var p *int32 = new (int32)
+	i = 10
+	p = &i
+	fmt.Println(i)
+	fmt.Println(*p)
+	fmt.Println(p)
+	fmt.Println(&i)
+	*p = 15
+	fmt.Println(*p)
+	fmt.Println(i)
+	fmt.Println(p)
+	fmt.Println(&i)
 }
