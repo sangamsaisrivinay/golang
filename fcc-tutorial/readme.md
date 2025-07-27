@@ -2,6 +2,7 @@
 - [ ] defer
 - [ ] methods, function vs method
 - [ ] break, continue, goto
+- [ ] pointers
 
 
 
@@ -1075,8 +1076,138 @@ Use a method when:
 ---
 
 # pointers
+- they are special types that stores memory adress of variables
 
+- declaring a pointer
+<pre>
+var p *int32
+</pre>
+
+- this will initially point to null
+- it doesnt give compile errors
+- but whebn ran it gives null pointer exception
+
+<pre>
+func main(){
+
+	var i int32
+	var p *int32
+	fmt.Println(p)
+	fmt.Println(*p)
+
+}
+
+o/p:
+<nil>
+panic: runtime error: invalid memory address or nil pointer dereference
+[signal SIGSEGV: segmentation violation code=0x2 addr=0x0 pc=0x100cb4784]
+
+</pre>
+
+
+- we will initialize a pointer using `new` key word
+
+`var p *int32 = new (int32)`
+
+- using * notation
+	- we will use * in 2 places
+		- to declare a pointer variable
+		- to reference/ access the value stored at the pointers address
+	- by default the value stored is the datatype default value, i.e. if we just initialize a pointer variable with new keyowrd, it stores the default value of that datatype to which it is intialized
+	- we can point the pointer to address of another variable using & notation, eg. p= &i i.e. it points to the adress of value of i.
+		- p & i refers to same adress location
+		- ### if we change the value of p using *p the value of i also changes
+
+summary:
+- *int - declares a pointer variable of type int
+- *p - gets the value at adress stored in p
+- &i - gets the memory location of i
+
+
+<pre>
+
+func main(){
+
+	var i int32
+	var p *int32 = new (int32)
+	fmt.Println(i)
+	fmt.Println(p)
+	fmt.Println(*p)
+	i=45;
+	p = &i
+	fmt.Println(p)
+	fmt.Println(*p)
+
+}
+</pre>
+
+o/p:
+<pre>
+0
+0x14000104020
+0
+0x1400010400c
+45
+</pre>
 
 
 ## callby value & call by reference
 
+
+### normal variables and pointers
+- we can point the pointer to address of another variable using & notation, eg. p= &i i.e. it points to the adress of value of i.
+		- p & i refers to same adress location
+		- ### if we change the value of p using *p the value of i also changes
+
+<pre>
+func main(){
+
+	var i int32
+	var p *int32 = new (int32)
+	i = 10
+	p = &i
+	fmt.Println(i)
+	fmt.Println(*p)
+	fmt.Println(p)
+	fmt.Println(&i)
+	*p = 15
+	fmt.Println(*p)
+	fmt.Println(i)
+	fmt.Println(p)
+	fmt.Println(&i)
+}
+
+</pre>
+
+o/p:
+<pre>
+10
+10
+0x1400000e09c
+0x1400000e09c
+15
+15
+0x1400000e09c
+0x1400000e09c
+</pre>
+
+
+### slice variables and pointers
+
+---
+
+# Go Routines
+
+- launch multiple functions and execute them concurrently
+- jumping back and forth b/w tasks
+
+
+- go keyword
+- wait groups
+	- .Add()
+	- .Wait()
+	- .Done()
+- mutex
+	- .Lock()
+	- .Unlock()
+- read-write mutex
